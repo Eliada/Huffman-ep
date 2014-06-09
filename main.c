@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 struct node {
 	unsigned short int f; /*frequency*/
 	unsigned short int v; /*value*/
@@ -26,15 +28,35 @@ int main (int argc, char **argv) {
 	struct node *huffman_tree;
 	struct node *sorted_list;
 
-	if (argc != 2) {
-		printf ("Faltou um arquivo de texto para ser comprimido!\n");
+	if(argc == 5)
+	{
+		int i;
+		char entrada[64];
+		char saida[64];
+
+		for(i=0; i < argc; i++)
+		{
+			if(strcmp(argv[i], "-c") != 0)
+				strcpy(entrada, argv[i+1]);
+
+			else if(strcmp(argv[i], "-o") != 0)
+				strcpy(saida, argv[i+1]);
+		}
+	}
+	else if(argc == 3)
+	{
+/*		descompacta*/
+	}
+	else
+	{
+		printf("Argumentos incorretos\n");
 		return -1;
 	}
 
-	printf ("Arquivo de entrada: %s\n", argv[1]);
-	printf ("Arquivo de saida: %s.fck\n", argv[1]);
+	printf ("Arquivo de entrada: %s\n", entrada);
+	printf ("Arquivo de saida: %s.fck\n", saida);
 
-	fp = fopen (argv[1], "r");
+	fp = fopen (entrada, "r");
 
 	ascii = get_chars_frequency (fp);
 
